@@ -195,8 +195,8 @@ PNInM0 = make_packet("InM0", (
     ("block_header",             "6s"),
     ("vendor_id_high",           "B"),
     ("vendor_id_low",            "B"),
-    ("order_id",                 "20s"),
-    ("im_serial_number",         "16s"),
+    ("order_id",                 ("20s", decode_bytes)),
+    ("im_serial_number",         ("16s", decode_bytes)),
     ("im_hardware_revision",     "H"),
     ("sw_revision_prefix",       "B"),
     ("im_sw_revision_functional_enhancement", "B"),
@@ -211,8 +211,8 @@ PNInM0 = make_packet("InM0", (
 
 PNInM1 = make_packet("InM1", (
     ("block_header",             "6s"),
-    ("im_tag_function",          "32s"),
-    ("im_tag_location",          "22s"),
+    ("im_tag_function",          ("32s", decode_bytes)),
+    ("im_tag_location",          ("22s", decode_bytes)),
 ), payload=False, statics={ "IDX": 0xAFF1 })
 
 

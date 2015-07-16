@@ -30,6 +30,9 @@ def udp_socket(host, port):
 def s2ip(i):
     return '.'.join(str(o) for o in i)
 
+def decode_bytes(s):
+    return s.decode()
+
 
 class timeout:
     def __init__(self, seconds=1, error_message='Timeout'):
