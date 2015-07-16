@@ -1,0 +1,47 @@
+<h1>{{info.name}}</h1>
+
+<a href="/">Back to discovery</a>
+
+<ul>
+<li>Name: <form action="/rename"><input type="hidden" name="mac" value="{{info.mac}}" /><input name="name" value="{{info.name}}" /></form></li>
+<li>MAC: {{info.mac}}</li>
+<li>IP:
+    <ul>
+    <li>Address: {{info.ip}}</li>
+    <li>Netmask: {{info.netmask}}</li>
+    <li>Gateway: {{info.gateway}}</li>
+    </ul>
+</li>
+<li>Vendor ID:
+    <ul>
+    <li>High: {{info.vendorHigh}}</li>
+    <li>Low: {{info.vendorLow}}</li>
+    </ul>
+</li>
+<li>Device ID:
+    <ul>
+    <li>High: {{info.devHigh}}</li>
+    <li>Low: {{info.devLow}}</li>
+    </ul>
+</li>
+</ul>
+
+<h2>I&M0 Filter Data</h2>
+
+<ul>
+{% for api in data.keys() %}
+<li>API {{api}}:
+    <ul>
+    {% for slot_number, (module_ident_number, subslots) in data[api].items() %}
+    <li>Slot {{slot_number}} has module {{module_ident_number}}
+        <ul>
+        {% for subslot_number, submodule_ident_number in subslots.items() %}
+        <li><a href="/inm0?name={{info.name}}&api={{api}}&slot={{slot_number}}&subslot={{subslot_number}}">Subslot {{subslot_number}}</a> has submodule {{submodule_ident_number}}</li>
+        {% endfor %}
+        </ul>
+    </li>
+    {% endfor %}
+    </ul>
+</li>
+{% endfor %}
+</ul>

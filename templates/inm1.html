@@ -1,0 +1,17 @@
+<h1>{{name}}</h1>
+
+<a href="/device?name={{name}}">Back to device</a>
+
+<form action="/inm1" method="post">
+<input type="hidden" name="name" value="{{name}}" />
+<input type="hidden" name="api" value="{{api}}" />
+<input type="hidden" name="slot" value="{{slot}}" />
+<input type="hidden" name="subslot" value="{{subslot}}" />
+
+<ul>
+<li>Tag Function: <input name="function" value="{{data.im_tag_function}}" /></li>
+<li>Tag Location: <input name="location" value="{{data.im_tag_location}}" /></li>
+</ul>
+
+<input type="submit">
+</form>

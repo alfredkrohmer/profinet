@@ -1,0 +1,57 @@
+<h1>{{name}}</h1>
+
+<a href="/device?name={{name}}">Back to device</a>
+
+<h2>I&M0 data</h2>
+
+{% if data is not None %}
+
+<ul>
+<li>VendorID:
+    <ul>
+    <li>High: {{data.vendor_id_high}}</li>
+    <li>Low: {{data.vendor_id_low}}</li>
+    </ul>
+</li>
+<li>Order ID: {{data.order_id}}</li>
+<li>Serial Number: {{data.im_serial_number}}</li>
+<li>Hardware Revision: {{data.im_hardware_revision}}</li>
+<li>SW Revision:
+    <ul>
+    <li>Prefix: {{data.sw_revision_prefix}}</li>
+    <li>Functional Enhancement: {{data.im_sw_revision_functional_enhancement}}</li>
+    <li>Bug Fix: {{data.im_sw_revision_bug_fix}}</li>
+    <li>Internal Change: {{data.im_sw_revision_internal_change}}</li>
+    </ul>
+</li>
+<li>Revision Counter: {{data.im_revision_counter}}</li>
+<li>Profile:
+    <ul>
+    <li>ID: {{data.im_profile_id}}</li>
+    <li>Specific Type: {{data.im_profile_specific_type}}</li>
+    </ul>
+</li>
+<li>Version: {{data.im_version}}</li>
+</ul>
+
+{% endif %}
+
+
+<h2>Read / Write parameters</h2>
+
+<form action="/inm0" method="post">
+<input type="hidden" name="name" value="{{name}}" />
+<input type="hidden" name="api" value="{{api}}" />
+<input type="hidden" name="slot" value="{{slot}}" />
+<input type="hidden" name="subslot" value="{{subslot}}" />
+
+<ul>
+<li>Index: <input name="idx" /></li>
+<li>Data:<br />
+<textarea cols=100 rows=15 name="data">{% if paramdata is not None %}{{paramdata}}{% endif %}</textarea></li>
+</ul>
+
+<input type="submit" name="action" value="read" />
+<input type="submit" name="action" value="write" />
+
+</form>

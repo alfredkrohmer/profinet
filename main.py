@@ -34,7 +34,7 @@ elif args.action == "set-param":
 elif args.action.startswith("read") or args.action.startswith("write"):
     print("Getting station info ...")
     info = rpc.get_station_info(s, src, args.target)
-    con = rpc.RPCCon(*info)
+    con = rpc.RPCCon(info)
 
     print("Connecting to device ...")
     con.connect(src)

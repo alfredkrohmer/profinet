@@ -1,0 +1,10 @@
+<h1>Devices on the local network</h1>
+
+<ul>
+{% for dd in resp %}
+<li>
+    <a href="/device?name={{dd.name}}">{{dd.name}}</a><br>
+    IP: {{dd.ip}}<br>
+    MAC: {{dd.mac}}</a></li>
+{% endfor %}
+</ul>

@@ -4,7 +4,7 @@ from sys import argv, exit, stdout, stderr
 from struct import pack, unpack, calcsize
 from collections import namedtuple, OrderedDict
 
-import signal
+import time
 
 def s2mac(s):
     return bytes([int(num, 16) for num in s.split(':')])
@@ -33,7 +33,19 @@ def s2ip(i):
 def decode_bytes(s):
     return s.decode()
 
+class max_timeout(object):
+    def __init__(self, seconds):
+        self.seconds = seconds
+    def __enter__(self):
+        self.die_after = time.time() + self.seconds
+        return self
+    def __exit__(self, type, value, traceback):
+        pass
+    @property
+    def timed_out(self):
+        return time.time() > self.die_after
 
+"""
 class timeout:
     def __init__(self, seconds=1, error_message='Timeout'):
         self.seconds = seconds
@@ -45,7 +57,7 @@ class timeout:
         signal.alarm(self.seconds)
     def __exit__(self, type, value, traceback):
         signal.alarm(0)
-
+"""
 
 # vlf = variable length field
 def make_packet(name, fields, statics={}, payload=True, payload_size_field=None, payload_offset=0, vlf=None, vlf_size_field=None):
