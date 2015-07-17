@@ -1,4 +1,4 @@
-import argparse
+import argparse, time
 
 
 from util import *
@@ -35,7 +35,7 @@ def get_param(s, src, target, param):
     
     s.send(bytes(eth))
     
-    recv.read_response(s, src)
+    return list(read_response(s, src, once=True).values())[0][param]
 
 def set_param(s, src, target, param, value):
     dst = s2mac(target)
@@ -50,6 +50,11 @@ def set_param(s, src, target, param, value):
     eth   = EthernetVLANHeader(dst, src, 0x8100, 0, PNDCPHeader.ETHER_TYPE, dcp)
     
     s.send(bytes(eth))
+    
+    # ignore response
+    s.recv(1522)
+    
+    time.sleep(2)
 
 
 def send_discover(s, src):

@@ -2,9 +2,9 @@
 
 <a href="/device?name={{name}}">Back to device</a>
 
-<h2>I&M0 data</h2>
+{% if data is not none %}
 
-{% if data is not None %}
+<h2>I&M0 data</h2>
 
 <ul>
 <li>VendorID:
@@ -34,6 +34,12 @@
 <li>Version: {{data.im_version}}</li>
 </ul>
 
+{% if inm1_supported %}
+
+<a href="/inm1?name={{name}}&api={{api}}&slot={{slot}}&subslot={{subslot}}">I&M1 data</a>
+
+{% endif %}
+
 {% endif %}
 
 
@@ -46,9 +52,9 @@
 <input type="hidden" name="subslot" value="{{subslot}}" />
 
 <ul>
-<li>Index: <input name="idx" /></li>
+<li>Index: <input name="idx" value="{{idx}}" /></li>
 <li>Data:<br />
-<textarea cols=100 rows=15 name="data">{% if paramdata is not None %}{{paramdata}}{% endif %}</textarea></li>
+<textarea cols=98 rows=15 name="data">{% if paramdata is not none %}{{paramdata}}{% endif %}</textarea></li>
 </ul>
 
 <input type="submit" name="action" value="read" />

@@ -6,6 +6,10 @@ from collections import namedtuple, OrderedDict
 
 import time
 
+
+def to_hex(s):
+    return ":".join("{:02x}".format(c) for c in s)
+
 def s2mac(s):
     return bytes([int(num, 16) for num in s.split(':')])
 

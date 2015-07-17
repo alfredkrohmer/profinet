@@ -20,7 +20,7 @@ class RPCCon:
         self.peer = (info.ip, 0x8894)
         
         self.ar_uuid = bytes([0x00, 0x11, 0x22, 0x33, 0x44, 0x55, 0x66, 0x77, 0x88, 0x99, 0xaa, 0xbb, 0xcc, 0xdd, 0xee, 0xff])
-        self.activity_uuid = ar_uuid
+        self.activity_uuid = self.ar_uuid
         
         self.local_object_uuid  = PNRPCHeader.OBJECT_UUID_PREFIX + bytes([0x00, 0x01, 0x76,              0x54,             0x32,                 0x10])
         self.remote_object_uuid = PNRPCHeader.OBJECT_UUID_PREFIX + bytes([0x00, 0x01, self.info.devHigh, self.info.devLow, self.info.vendorHigh, self.info.vendorLow])
@@ -56,9 +56,8 @@ class RPCCon:
         return PNNRDData(1500, len(payload), 1500, 0, len(payload), payload=payload)
 
     def _check_timeout(self):
-        if (datetime.now() - self.live).seconds >= 10:
+        if self.live is not None and (datetime.now() - self.live).seconds >= 10:
             self.connect()
-
 
     def connect(self, src_mac=None):
         if self.live is None:
@@ -69,7 +68,7 @@ class RPCCon:
             0x0006, # AR Type
             self.ar_uuid, # AR UUID
             0x1234, # Session key
-            src_mac,
+            self.src_mac,
             self.local_object_uuid,
             0x131, # AR Properties
             100, # Timeout factor

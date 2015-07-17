@@ -9,8 +9,8 @@
 <input type="hidden" name="subslot" value="{{subslot}}" />
 
 <ul>
-<li>Tag Function: <input name="function" value="{{data.im_tag_function}}" /></li>
-<li>Tag Location: <input name="location" value="{{data.im_tag_location}}" /></li>
+<li>Tag Function: <input name="function" value="{{data.im_tag_function.decode().rstrip('\0')}}" /></li>
+<li>Tag Location: <input name="location" value="{{data.im_tag_location.decode().rstrip('\0')}}" /></li>
 </ul>
 
 <input type="submit">
